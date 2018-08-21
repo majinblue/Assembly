@@ -1,4 +1,5 @@
 # Assembly
 
 - SPARC
-- Mario on Pi v8
+- ARM v8
+- SNES Mario (Pi controller drivers and game)
