@@ -1,0 +1,126 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD build/framebuffer.o
+LOAD build/jtag.o
+LOAD build/main.o
+LOAD uart.o
+LOAD gpio.o
+
+.init           0x0000000000008000        0x4
+ *(.init)
+ .init          0x0000000000008000        0x4 build/main.o
+                0x0000000000008000                _start
+
+.data           0x0000000000009080      0x16f
+ *(.data)
+ .data          0x0000000000009080       0x64 build/framebuffer.o
+                0x00000000000090e0                FrameBufferPointer
+ .data          0x00000000000090e4        0x0 build/jtag.o
+ .data          0x00000000000090e4      0x10b build/main.o
+ .data          0x00000000000091ef        0x0 uart.o
+ .data          0x00000000000091ef        0x0 gpio.o
+ *.c.o(*)
+
+.igot.plt       0x00000000000091f0        0x0
+ .igot.plt      0x00000000000091f0        0x0 build/framebuffer.o
+
+.text           0x00000000000091f0      0x6c4
+ *.c.o(.text)
+ *(.text)
+ .text          0x00000000000091f0       0x80 build/framebuffer.o
+                0x00000000000091f0                InitFrameBuffer
+ .text          0x0000000000009270       0x8c build/jtag.o
+                0x0000000000009270                EnableJTAG
+ .text          0x00000000000092fc      0x328 build/main.o
+ .text          0x0000000000009624      0x1b8 uart.o
+                0x0000000000009624                InitUART
+                0x00000000000096e4                PutCharUART
+                0x0000000000009700                GetCharUART
+                0x000000000000971c                WriteStringUART
+                0x000000000000974c                ReadLineUART
+ .text          0x00000000000097dc       0xd8 gpio.o
+                0x00000000000097dc                GetGpioAddress
+                0x00000000000097e4                SetGpioFunction
+                0x0000000000009830                SetGpio
+                0x000000000000986c                GetGpio
+OUTPUT(build/output.elf elf32-littlearm)
+
+.glue_7         0x00000000000098b4        0x0
+ .glue_7        0x00000000000098b4        0x0 linker stubs
+
+.glue_7t        0x00000000000098b4        0x0
+ .glue_7t       0x00000000000098b4        0x0 linker stubs
+
+.vfp11_veneer   0x00000000000098b4        0x0
+ .vfp11_veneer  0x00000000000098b4        0x0 linker stubs
+
+.v4_bx          0x00000000000098b4        0x0
+ .v4_bx         0x00000000000098b4        0x0 linker stubs
+
+.iplt           0x00000000000098b4        0x0
+ .iplt          0x00000000000098b4        0x0 build/framebuffer.o
+
+.rel.dyn        0x00000000000098b4        0x0
+ .rel.iplt      0x00000000000098b4        0x0 build/framebuffer.o
+
+.bss            0x00000000000098b4        0x0
+ .bss           0x00000000000098b4        0x0 build/framebuffer.o
+ .bss           0x00000000000098b4        0x0 build/jtag.o
+ .bss           0x00000000000098b4        0x0 build/main.o
+ .bss           0x00000000000098b4        0x0 uart.o
+ .bss           0x00000000000098b4        0x0 gpio.o
+
+.ARM.attributes
+                0x0000000000000000       0x29
+ .ARM.attributes
+                0x0000000000000000       0x29 build/framebuffer.o
+ .ARM.attributes
+                0x0000000000000029       0x29 build/jtag.o
+ .ARM.attributes
+                0x0000000000000052       0x29 build/main.o
+ .ARM.attributes
+                0x000000000000007b       0x29 uart.o
+ .ARM.attributes
+                0x00000000000000a4       0x29 gpio.o
+
+.debug_line     0x0000000000000000      0x31c
+ .debug_line    0x0000000000000000       0x67 build/framebuffer.o
+ .debug_line    0x0000000000000067       0x61 build/jtag.o
+ .debug_line    0x00000000000000c8      0x124 build/main.o
+ .debug_line    0x00000000000001ec       0xb7 uart.o
+ .debug_line    0x00000000000002a3       0x79 gpio.o
+
+.debug_info     0x0000000000000000      0x228
+ .debug_info    0x0000000000000000       0x82 build/framebuffer.o
+ .debug_info    0x0000000000000082       0x7b build/jtag.o
+ .debug_info    0x00000000000000fd       0x77 build/main.o
+ .debug_info    0x0000000000000174       0x5a uart.o
+ .debug_info    0x00000000000001ce       0x5a gpio.o
+
+.debug_abbrev   0x0000000000000000       0x62
+ .debug_abbrev  0x0000000000000000       0x14 build/framebuffer.o
+ .debug_abbrev  0x0000000000000014       0x14 build/jtag.o
+ .debug_abbrev  0x0000000000000028       0x12 build/main.o
+ .debug_abbrev  0x000000000000003a       0x14 uart.o
+ .debug_abbrev  0x000000000000004e       0x14 gpio.o
+
+.debug_aranges  0x0000000000000000       0xa8
+ .debug_aranges
+                0x0000000000000000       0x20 build/framebuffer.o
+ .debug_aranges
+                0x0000000000000020       0x20 build/jtag.o
+ .debug_aranges
+                0x0000000000000040       0x28 build/main.o
+ .debug_aranges
+                0x0000000000000068       0x20 uart.o
+ .debug_aranges
+                0x0000000000000088       0x20 gpio.o
+
+.debug_ranges   0x0000000000000000       0x20
+ .debug_ranges  0x0000000000000000       0x20 build/main.o

@@ -1,0 +1,39 @@
+.constant
+OBJREF	0x40
+.end-constant
+
+.main
+
+.var
+.end-var
+
+start:
+		LDC_W			OBJREF
+		INVOKEVIRTUAL	echo
+
+		IRETURN
+.end-main
+
+.method echo()
+
+
+.var
+.end-var
+
+echo:
+		IN								// read in a character, push
+
+		DUP								// duplicate the top of stack
+
+		BIPUSH			0x0A
+		IF_ICMPEQ		returnecho		// branch to return on newline
+
+		OUT								// pop the stack, print to output
+
+		GOTO			echo
+
+returnecho:
+		POP								// clean up the duplicate on the stack
+		IRETURN
+
+.end-method

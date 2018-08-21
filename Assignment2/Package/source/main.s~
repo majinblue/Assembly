@@ -1,0 +1,417 @@
+//Created by:
+//Gevorg Manukyan 10163988
+//Richard Truong 10058625
+
+.section    .init
+.globl     _start
+
+_start:
+    b       main
+    
+.section .text
+
+main:
+mov     	sp, #0x8000 // Initializing the stack pointer
+	bl		EnableJTAG // Enable JTAG
+	bl		InitUART //This is important to be able to use UART
+
+
+
+ldr r0, =string0 	//Address of the label in data section containing the data you want to print	
+mov r1, #48		//Number of characters to print
+bl WriteStringUART 	
+
+menu:	
+
+ldr r0, =string1 	//Address of the label in data section containing the data you want to print
+mov r1, #128	//Number of characters needed to be print
+bl WriteStringUART  		
+
+ldr r0,=Buffer	//The buffer which will store user input. user input will be stored in terms of bytes using ascii	
+mov r1, #256    // Number of bytes allocated for user input in the memory
+bl ReadLineUART // it will return in r0 number of characters user entered
+		
+	
+ldr r4, =Buffer
+ldrb r5, [r4], #1
+
+
+cmp r5, #113
+beq stop	
+	
+cmp r5, #49	
+beq square 
+
+cmp r5, #50
+beq rectangle	
+
+cmp r5, #51	
+beq triangle
+
+cmp r5, #45
+bne error0	
+
+ldrb r5, [r4], #1
+cmp r5, #49	
+beq summary
+b error0
+
+error0:
+ldr r0, =string11
+mov r1, #34
+bl WriteStringUART
+b menu
+	
+square:
+	
+ldr r0, =string2 	//Address of the label in data section containing the data you want to print
+mov r1, #71	//Number of characters needed to be printed
+bl WriteStringUART	
+	
+ldr r0,=Buffer	//The buffer which will store user input. user input will be stored in terms of bytes using ascii	
+mov r1, #256    // Number of bytes allocated for user input in the memory
+bl ReadLineUART // it will return in r0 number of characters user entered
+
+ldr r4, =Buffer	
+ldrb r5, [r4], #1
+mov r7, r5
+mov r8, r5	
+ldrb r6, [r4], #1
+cmp r6, #0
+bne error1	
+
+cmp r5, #51	
+beq skip0 
+
+cmp r5, #52
+beq skip0	
+
+cmp r5, #53	
+beq skip0
+
+cmp r5, #54	
+beq skip0 
+
+cmp r5, #55
+beq skip0	
+
+cmp r5, #56	
+beq skip0	
+
+cmp r5, #57	
+beq skip0
+b error1
+
+squareloop:
+mov r5, r8	
+skip0:
+ldr r0, =string3 	//Address of the label in data section containing the data you want to print
+mov r1, #2	//Number of characters needed to be print
+bl WriteStringUART 
+	
+sub r5, r5, #1
+cmp r5, #48	
+bne skip0
+
+break:	
+	
+ldr r0, =string4 	//Address of the label in data section containing the data you want to print
+mov r1, #2	//Number of characters needed to be print
+bl WriteStringUART
+
+ldr r9, =squareStars
+ldr r10, [r9]	
+add r10, r10, #1
+str r10, [r9]	
+
+sub r7, r7, #1
+cmp r7, #48
+bne squareloop
+
+b menu	
+
+error1:
+ldr r0, =string5 	//Address of the label in data section containing the data you want to print
+mov r1, #52	//Number of characters needed to be print
+bl WriteStringUART 
+b square
+
+rectangle:
+ldr r0, =string2 	//Address of the label in data section containing the data you want to print
+mov r1, #71	//Number of characters needed to be print
+bl WriteStringUART
+	
+	
+ldr r0,=Buffer	//The buffer which will store user input. user input will be stored in terms of bytes using ascii	
+mov r1, #256    // Number of bytes allocated for user input in the memory
+bl ReadLineUART // it will return in r0 number of characters user entered
+
+ldr r4, =Buffer	
+ldrb r5, [r4], #1
+mov r7, r5
+mov r8, r5	
+ldrb r6, [r4], #1
+cmp r6, #0
+bne error2	
+
+cmp r5, #51	
+beq skip1 
+
+cmp r5, #52
+beq skip1	
+
+cmp r5, #53	
+beq skip1
+
+cmp r5, #54	
+beq skip1 
+
+cmp r5, #55
+beq skip1	
+
+cmp r5, #56	
+beq skip1	
+
+cmp r5, #57	
+beq skip1
+b error2
+
+rectangleloop:
+mov r5, r8	
+skip1:
+ldr r0, =string3 	//Address of the label in data section containing the data you want to print
+mov r1, #2	//Number of characters needed to be print
+bl WriteStringUART
+
+ldr r9, =rectangleStars
+ldr r10, [r9]	
+add r10, r10, #1
+str r10, [r9]
+	
+sub r5, r5, #1
+cmp r5, #48	
+bne skip1
+
+ldr r0, =string4 	//Address of the label in data section containing the data you want to print
+mov r1, #2	//Number of characters needed to be print
+bl WriteStringUART 
+
+sub r7, r7, #1
+cmp r7, #50
+bne rectangleloop
+
+b menu	
+
+error2:
+ldr r0, =string5 	//Address of the label in data section containing the data you want to print
+mov r1, #52	//Number of characters needed to be print
+bl WriteStringUART 
+b rectangle
+
+
+triangle:
+ldr r0, =string2 	//Address of the label in data section containing the data you want to print
+mov r1, #71	//Number of characters needed to be print
+bl WriteStringUART	
+	
+ldr r0,=Buffer	//The buffer which will store user input. user input will be stored in terms of bytes using ascii	
+mov r1, #256    // Number of bytes allocated for user input in the memory
+bl ReadLineUART // it will return in r0 number of characters user entered
+
+ldr r4, =Buffer	
+ldrb r5, [r4], #1
+mov r7, r5
+
+ldrb r6, [r4], #1
+cmp r6, #0
+bne error3	
+
+cmp r5, #51	
+beq triangleloop 
+
+cmp r5, #52
+beq triangleloop	
+
+cmp r5, #53	
+beq triangleloop
+
+cmp r5, #54	
+beq triangleloop
+
+cmp r5, #55
+beq triangleloop	
+
+cmp r5, #56	
+beq triangleloop	
+
+cmp r5, #57	
+beq triangleloop
+b error3
+
+mov r7, r5	
+mov r6, r5
+
+triangleloop:
+
+mov r9, r7	
+skip2:
+ldr r0, =string3 	//Address of the label in data section containing the data you want to print
+mov r1, #2	//Number of characters needed to be print
+bl WriteStringUART
+
+ldr r10, =triangleStars
+ldr r8, [r10]	
+add r8, r8, #1
+str r8, [r10]	
+
+sub r9, r9, #1
+cmp r9, #48	
+bne skip2
+
+ldr r0, =string4 	//Address of the label in data section containing the data you want to print
+mov r1, #2	//Number of characters needed to be print
+bl WriteStringUART 
+
+sub r7, r7, #1
+cmp r7, #48
+	
+sub r5, r5, #1	
+bne triangleloop
+
+b menu
+
+error3:
+ldr r0, =string5 	//Address of the label in data section containing the data you want to print
+mov r1, #52	//Number of characters needed to be print
+bl WriteStringUART 
+b triangle	
+
+summary:
+
+ldr r0, =string7 	//Address of the label in data section containing the data you want to print
+mov r1, #71	//Number of characters needed to be printed
+bl WriteStringUART
+
+ldr r4, =totalStars
+ldr r5, [r4]	
+ldr r4, =squareStars
+ldr r6, [r4]	
+ldr r4,	=rectangleStars
+ldr r7, [r4]
+ldr r4, =triangleStars
+ldr r8, [r4]	
+	
+add r5, r5, r6
+add r5, r5, r7
+add r5, r5, r8
+mov r0, r5
+mov r1, #3	
+bl  WriteStringUART
+
+squareSummary:
+ldr r0, =string8 	//Address of the label in data section containing the data you want to print
+mov r1, #36	//Number of characters needed to be printed
+bl WriteStringUART
+cmp r6,    #0
+bne meanSquare
+mov r0, #0
+mov r1, #3	
+bl  WriteStringUART
+b   rectangleSummary
+meanSquare:
+udiv    r0, r6, r5
+mov r1, #3	
+bl WriteStringUART
+
+rectangleSummary:
+ldr r0, =string9 	//Address of the label in data section containing the data you want to print
+mov r1, #71	//Number of characters needed to be printed
+bl WriteStringUART
+cmp r7,    #0
+bne meanRectangle
+mov r0, #0
+mov r1, #3	
+bl  WriteStringUART
+b   triangleSummary
+meanRectangle:
+udiv    r0, r7, r5
+mov r1, #3	
+bl WriteStringUART
+
+triangleSummary:
+ldr r0, =string8 	//Address of the label in data section containing the data you want to print
+mov r1, #71	//Number of characters needed to be printed
+bl WriteStringUART
+cmp r8,    #0
+bne meanTriangle
+mov r0, #0
+mov r1, #3	
+bl  WriteStringUART
+ldr r0, =string4 	//Address of the label in data section containing the data you want to print
+mov r1, #3
+bl  WriteStringUART
+b   menu
+meanTriangle:
+udiv    r0, r8, r6
+mov r1, #3	
+bl WriteStringUART
+ldr r0, =string4 	//Address of the label in data section containing the data you want to print
+mov r1, #3	
+bl  WriteStringUART
+b menu
+
+stop:
+	b		stop
+
+.section .data  
+string0:
+	.ascii "Created By: Gevorg Manukyan and Richard Truong\r\n"
+	.align
+string1:	
+	.ascii "Please enter the number of the object you want to draw. Press -1 for Summary or q to exit.\r\n"
+	.ascii "1-Square; 2-Rectangle; 3-Triangle.\r\n"
+	.align
+string2:
+	.ascii "Please enter width of object. Please make sure it is between 3 and 9.\r\n"
+	.align
+string3:
+	.ascii "* "
+	.align
+string4:
+	.ascii "\r\n"
+	.align
+string5:
+	.ascii "Invalid Number! The width should be between 3 and 9.\r\n"
+	.align
+string6:
+	.ascii " "
+	.align
+string7:
+    .ascii "Total Number of Stars is:\r"
+    .align
+string8:
+    .ascii "\nMean Stars used to draw Square(s):\r"
+    .align
+string9:
+    .ascii "\nMean Stars used to draw Rectangle(s):\r"
+    .align
+string10:
+    .ascii "\nMean Stars used to draw Triangle(s):\r"
+    .align
+string11:
+	.ascii "Invalid Input: Please Choose Again\n\r"
+	.align
+
+squareStars:
+    .int   0
+rectangleStars:
+    .int   0
+triangleStars:
+    .int   0
+totalStars:
+    .int   0
+
+Buffer:
+	.rept 256
+	.byte 0
+	.endr

@@ -1,0 +1,67 @@
+/* Iterative Fibonacci Example */
+
+.constant
+OBJREF	0x40
+.end-constant
+
+.main
+
+.var
+.end-var
+
+start:
+		LDC_W			OBJREF
+		BIPUSH			10
+		INVOKEVIRTUAL	fibb
+
+		IRETURN
+.end-main
+
+.method fibb(n)
+
+.var
+i						// fibbonacci index
+tmp						// temp variable
+.end-var
+
+fibb:
+		ILOAD			n
+		BIPUSH			3
+		ISUB
+		IFLT			returnone
+
+		BIPUSH			2
+		ISTORE			i
+
+		BIPUSH			1
+		BIPUSH			1
+
+fibbLoop:								// s: Fi, Fi+1
+		SWAP							// s: Fi+1, Fi
+		ISTORE			tmp				// s: Fi+1
+		DUP								// s: Fi+1, Fi+1
+		ILOAD			tmp				// s: Fi+1, Fi+1, Fi
+		IADD							// s: Fi+1, Fi+2 (Fi+2 = Fi + Fi+1)
+
+		ILOAD			i
+		BIPUSH			1
+		IADD
+		ISTORE			i				// i += 1
+
+
+		ILOAD			i
+		ILOAD			n
+		IF_ICMPEQ		returnfibb		// goto return code if i == n
+		GOTO			fibbLoop
+
+returnfibb:								// s: Fn-1, Fn
+		SWAP							// s: Fn, Fn-1
+		POP								// s: Fn
+		IRETURN
+	
+
+returnone:
+		BIPUSH			1				// return 1
+		IRETURN
+
+.end-method

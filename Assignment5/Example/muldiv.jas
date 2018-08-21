@@ -1,0 +1,497 @@
+//	This program computes the product, quotient, and modulus of three sets of two numbers each.
+//    To use:
+//      Click the Run button
+//      Enter the first number (up to 8 digit hex, using upper-case "A"-"F")
+//      Press return
+//      Enter the second number and press return
+//      The resulting product will be displayed, with leading zeros (always prints 8 digits)
+//      Repeat for quotient and then modulus
+//		The program then repeats from product again
+//      Click on the Stop button
+//	Remember that every input and output is in base 16.
+
+.constant
+negMask 0x80		//bitmask for isolating the sign bit
+OBJREF 0x40				//needed for method invocation
+.end-constant
+
+.main			//start of program
+
+.var			//local variables for main program
+a
+b
+final
+rem
+.end-var
+
+start:
+	BIPUSH 0x0		//initialize a and b
+	DUP
+	ISTORE a
+	ISTORE b
+	BIPUSH 0x20		//print " "
+	OUT
+	LDC_W OBJREF
+	INVOKEVIRTUAL getnum
+	ISTORE a		//store return value in a
+	BIPUSH 0x2a		//print "*"
+	OUT
+	LDC_W OBJREF
+	INVOKEVIRTUAL getnum
+	ISTORE b		//store return value in b
+	BIPUSH 0x3d		// print "========"
+	DUP
+	DUP
+	DUP
+	DUP
+	DUP
+	DUP
+	DUP
+	OUT
+	OUT
+	OUT
+	OUT
+	OUT
+	OUT
+	OUT
+	OUT
+	BIPUSH 0xa		//print newline
+	OUT
+	LDC_W OBJREF	//push OBJREF
+	ILOAD a
+	ILOAD b
+	INVOKEVIRTUAL imul
+	ISTORE final
+	LDC_W OBJREF
+	ILOAD final
+	INVOKEVIRTUAL print
+	
+	BIPUSH 0x0		//initialize a and b
+	DUP
+	ISTORE a
+	ISTORE b
+	BIPUSH 0x20		//print " "
+	OUT
+	LDC_W OBJREF
+	INVOKEVIRTUAL getnum
+	ISTORE a		//store return value in a
+	BIPUSH 0x2f		//print "/"
+	OUT
+	LDC_W OBJREF
+	INVOKEVIRTUAL getnum
+	ISTORE b		//store return value in b
+	BIPUSH 0x3d		// print "========"
+	DUP
+	DUP
+	DUP
+	DUP
+	DUP
+	DUP
+	DUP
+	OUT
+	OUT
+	OUT
+	OUT
+	OUT
+	OUT
+	OUT
+	OUT
+	BIPUSH 0xa		//print newline
+	OUT
+	LDC_W OBJREF	//push OBJREF
+	ILOAD a
+	ILOAD b
+	BIPUSH 0x0
+	INVOKEVIRTUAL idiv
+	ISTORE final
+	LDC_W OBJREF
+	ILOAD final
+	INVOKEVIRTUAL print
+	
+	BIPUSH 0x0		//initialize a and b
+	DUP
+	ISTORE a
+	ISTORE b
+	BIPUSH 0x20		//print " "
+	OUT
+	LDC_W OBJREF
+	INVOKEVIRTUAL getnum
+	ISTORE a		//store return value in a
+	BIPUSH 0x25		//print "%"
+	OUT
+	LDC_W OBJREF
+	INVOKEVIRTUAL getnum
+	ISTORE b		//store return value in b
+	BIPUSH 0x3d		// print "========"
+	DUP
+	DUP
+	DUP
+	DUP
+	DUP
+	DUP
+	DUP
+	OUT
+	OUT
+	OUT
+	OUT
+	OUT
+	OUT
+	OUT
+	OUT
+	BIPUSH 0xa		//print newline
+	OUT
+	LDC_W OBJREF	//push OBJREF
+	ILOAD a
+	ILOAD b
+	BIPUSH 0x1
+	INVOKEVIRTUAL idiv
+	ISTORE final
+	LDC_W OBJREF
+	ILOAD final
+	INVOKEVIRTUAL print
+	
+	GOTO start
+.end-main
+
+
+.method imul(int1, int2)
+.var
+abs_int1
+abs_int2
+m		//product
+c		//lower value
+o		//higher value
+i		//loop counter
+.end-var
+	
+mstart:
+	BIPUSH 0x0		//initialize m
+	ISTORE m
+	BIPUSH 0x0		//initalize i
+	ISTORE i
+	ILOAD int1		//check if int1 is negative
+	LDC_W negMask
+	IAND
+	LDC_W negMask
+	ISUB
+	IFEQ mint1neg	//if int1 is negative, it must be converted
+	ILOAD int1		//else, abs(int1) = int1
+	ISTORE abs_int1
+	GOTO mstart2
+	
+mint1neg:
+	ILOAD int1		//convert int1 from negative to positive
+	NEG
+	ISTORE abs_int1	//and store in local variable
+	
+mstart2:
+	ILOAD int2		//check if int2 is negative
+	LDC_W negMask
+	IAND
+	LDC_W negMask
+	ISUB
+	IFEQ mint2neg	//if int2 is negative, it must be converted
+	ILOAD int2		//else, abs(int2) = int2
+	ISTORE abs_int2
+	GOTO mstart3
+	
+mint2neg:
+	ILOAD int2		//convert int2 from negative to positive
+	NEG
+	ISTORE abs_int2	//and store in local variable
+	
+mstart3:
+	ILOAD abs_int2
+	ILOAD abs_int1
+	ISUB
+	IFLT mlessthan	//branch if abs(int2) > abs(int1)
+	GOTO mmorethan	//else, branch elsewhere
+
+mlessthan:
+	ILOAD abs_int1		//c = abs(int1) = min(abs(int1), abs(int2))
+	ISTORE c
+	ILOAD abs_int2		//o = abs(int2) = max(abs(int1), abs(int2))
+	ISTORE o
+	GOTO mloop
+	
+mmorethan:
+	ILOAD abs_int2		//c = abs(int2) = min(abs(int1), abs(int2))
+	ISTORE c
+	ILOAD abs_int1		//o = abs(int1) = max(abs(int1), abs(int2))
+	ISTORE o
+	
+mloop:
+	ILOAD c			//compare i to c
+	ILOAD i
+	ISUB
+	IFEQ mcheckNeg	//leave loop when i reaches c
+	ILOAD m
+	ILOAD o
+	IADD
+	ISTORE m		//m = m + o
+	ILOAD i
+	BIPUSH 0x1
+	IADD
+	ISTORE i
+	GOTO mloop
+	
+mcheckNeg:
+	LDC_W negMask
+	ILOAD int1
+	IAND
+	LDC_W negMask
+	ILOAD int2
+	IAND
+	ISUB
+	IFEQ mreturn		//if result is 0, they have the same sign
+	ILOAD m
+	LDC_W negMask
+	IOR
+	ISTORE m		//m = -m
+	
+mreturn:
+	ILOAD m			//load m as return value
+	IRETURN			//return
+.end-method
+
+
+
+.method idiv(int1, int2, return_type)
+.var
+abs_int1
+abs_int2
+q			//quotient
+r			//remainder
+.end-var
+
+dstart:
+	ILOAD int1		//check if int1 is negative
+	LDC_W negMask
+	IAND
+	LDC_W negMask
+	ISUB
+	IFEQ dint1neg	//if int1 is negative, it must be converted
+	ILOAD int1		//else, abs(int1) = int1
+	ISTORE abs_int1
+	GOTO dstart2
+	
+dint1neg:
+	ILOAD int1		//convert int1 from negative to positive
+	NEG
+	ISTORE abs_int1	//and store in local variable
+	
+dstart2:
+	ILOAD int2
+	LDC_W negMask
+	IAND
+	LDC_W negMask
+	ISUB
+	IFEQ dint2neg	//if int2 is negative, it must be converted
+	ILOAD int2		//else, abs(int2) = int2
+	ISTORE abs_int2
+	GOTO dstart3
+	
+dint2neg:
+	ILOAD int2		//convert int2 from negative to positive
+	NEG
+	ISTORE abs_int2	//and store in local variable
+	
+dstart3:
+	BIPUSH 0x0
+	ISTORE q			//initialize q
+	ILOAD abs_int1
+	ISTORE r			//initialize r
+	
+dloop:
+	ILOAD r
+	ILOAD abs_int2
+	ISUB
+	IFLT dcheckNeg		//leave loop when r < abs_int2
+	ILOAD r
+	ILOAD abs_int2
+	ISUB
+	ISTORE r
+	ILOAD q
+	BIPUSH 0x1
+	IADD
+	ISTORE q
+	GOTO dloop
+	
+dcheckNeg:
+	LDC_W negMask
+	ILOAD int1
+	IAND
+	LDC_W negMask
+	ILOAD int2
+	IAND
+	ISUB
+	IFEQ dreturn		//if result is 0, they have the same sign
+	ILOAD q
+	NEG
+	ISTORE q		//q = -q
+
+dreturn:
+	BIPUSH 0x0
+	ILOAD return_type
+	ISUB
+	IFLT dreturnr		//branch if return_type > 0
+	ILOAD q				//load q as return value
+	IRETURN				//return
+	
+dreturnr:
+	ILOAD r				//load r as return value
+	IRETURN				//return
+.end-method
+
+
+.method getnum()
+.var
+a
+.end-var
+
+	BIPUSH 0x0		// initialize a
+        ISTORE a
+geta:	IN			// read key press
+	DUP			// duplicate key for comparison
+	BIPUSH 0xa		// if key = cr,
+	IF_ICMPEQ return	//   return
+	DUP
+	BIPUSH 0x30		// if key < "0"
+	ISUB			//
+	IFLT geta4		//   goto geta4 (key is not a hex digit)
+    	DUP
+	BIPUSH 0x3a		// else if key < ":"
+	ISUB			//
+	IFLT geta2		//   goto geta2 (key is numeric character - "0"-"9")
+	DUP
+	BIPUSH 0x41		// else if key < "A"
+	ISUB			//
+	IFLT geta4		//   goto geta4 (key is not a hex digit)
+	DUP
+	BIPUSH 0x46		// else if key > "F"
+	SWAP			//  
+	ISUB			//
+	IFLT geta4		//   goto geta4 (key is not a hex digit)
+	DUP			// else (key is letter - "A"-"F")
+	OUT			//   print key
+	BIPUSH 0x37		//   convert key from character to number
+	ISUB			//
+	GOTO geta3		//   goto geta3
+geta2:  DUP
+	OUT			// print key (numeric character)
+	BIPUSH 0x30		// convert key from character to number
+	ISUB
+geta3:  ILOAD a			// shift a left 8 bits
+	DUP
+	IADD
+	DUP
+	IADD
+	DUP
+	IADD
+	DUP
+	IADD
+	IADD			// add key to a
+	ISTORE a
+	GOTO geta		// get next key
+
+geta4:	POP			// pop invalid character
+	GOTO geta		// get next key
+
+return: OUT			// print cr
+	ILOAD a			// load a as return value
+	IRETURN			// return
+.end-method
+
+.method print( total ) 		// print converts a number into a string of
+				//   characters and prints them.  All of the characters
+				//   are pushed onto the stack, least significant
+				//   digit first, then popped off and printed.
+.var
+place
+index
+.end-var
+
+print: 	BIPUSH 0x9		// there are 8 nibbles in each integer--setting
+				//   this as nine pushes 10 characters onto the
+ 				//   stack, thus a total of ten printed digits,
+				//   but setting this less does not remove the
+				//   two leading zeros, just removes significant
+				//   digits
+	ISTORE index
+	BIPUSH 0x1		// comparison bit
+	ISTORE place
+print1:	BIPUSH 0x0
+	ILOAD index		// index = index - 1
+	BIPUSH 0x1
+	ISUB
+	DUP
+	IFEQ pall		// if index = 0  goto pall
+	ISTORE index
+	ILOAD total		// else
+	ILOAD place		//
+	IAND			//   if 1st bit of current nibble is zero (total & place)
+	IFEQ print2		//     goto print2
+	BIPUSH 0x1		//   else set first bit of character
+	IADD
+print2: ILOAD place		//   place = place << 1 
+	DUP
+	IADD
+	ISTORE place
+	ILOAD total
+	ILOAD place
+	IAND			//   if 2nd bit of current nibble is zero (total & place)
+	IFEQ print3		//     goto print3
+	BIPUSH 0x2		//   else set second bit of character
+	IADD	
+print3: ILOAD place		//   place = place << 1
+	DUP
+	IADD
+	ISTORE place
+	ILOAD total
+	ILOAD place
+	IAND			//   if 3rd bit of current nibble is zero (total & place)
+	IFEQ print4		//     goto print4
+	BIPUSH 0x4		//   else set second bit of character
+	IADD	
+print4: ILOAD place		//   place = place << 1
+	DUP
+	IADD
+	ISTORE place
+	ILOAD total
+	ILOAD place
+	IAND			//   if 4th bit of current nibble is zero (total & place)
+	IFEQ print5		//     goto print5
+	BIPUSH 0x8		//   else set second bit of character
+	IADD	
+print5: ILOAD place		//   place = place << 1
+	DUP
+	IADD
+	ISTORE place
+	GOTO print1
+	
+pall:   POP			// Pop off leading 0's
+	POP
+	BIPUSH 0x9
+	ISTORE index
+pall1:	ILOAD index		// index = index - 1
+	BIPUSH 0x1
+	ISUB
+	DUP
+	IFEQ return		// if index = 0  return
+	ISTORE index
+	DUP
+	BIPUSH 0xa		// else if character < 0xa goto pall1
+	ISUB
+	IFLT pall2
+	BIPUSH 0x37		// else convert character to "A"-"F"
+	IADD
+	OUT			// print character
+	GOTO pall1		// goto pall (prepare & print next character)
+pall2:	BIPUSH 0x30		// convert character to "0"-"9"
+	IADD
+	OUT			// print character
+	GOTO pall1		// goto pall1 (prepare & print next character)
+return:	BIPUSH 0xa		// print cr
+	OUT
+	IRETURN			// no return value
+.end-method

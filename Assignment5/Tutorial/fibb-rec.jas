@@ -1,0 +1,61 @@
+/* Recursive Fibonacci Example */
+
+.constant
+OBJREF	0x40
+.end-constant
+
+.main
+
+.var
+.end-var
+
+start:
+		LDC_W			OBJREF
+		BIPUSH			10
+		INVOKEVIRTUAL	fibb
+
+		IRETURN
+.end-main
+
+.method fibb(n)
+
+.var
+.end-var
+
+fibb:
+		// branch to returnOne if (n - 2) < 0 (ie: n == 0 or n == 1)
+		ILOAD			n
+		BIPUSH			0x02
+		ISUB
+		IFLT			returnOne
+
+		// call fibb(n-1)
+		LDC_W			OBJREF
+
+		ILOAD			n
+		BIPUSH			0x01
+		ISUB
+
+		INVOKEVIRTUAL	fibb
+
+		// call fibb(n-2)
+		LDC_W			OBJREF
+
+		ILOAD			n
+		BIPUSH			0x02
+		ISUB
+
+		INVOKEVIRTUAL	fibb
+
+		// add results of function calls
+		IADD
+
+		// return fibb(n-1) + fibb(n-2)
+		IRETURN
+
+returnOne:
+		// return 1
+		BIPUSH			0x01
+		IRETURN
+
+.end-method

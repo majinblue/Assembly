@@ -1,0 +1,54 @@
+.constant
+OBJREF 0x40
+.end-constant
+
+
+.main
+
+.var
+.end-var
+
+// Uncomment This if you want to test the implemented IXOR
+//	Start:	
+//		BIPUSH	0x11
+//		BIPUSH	0x00
+//		IXOR
+//		IRETURN
+
+
+XORMethod:
+	LDC_W	OBJREF
+	BIPUSH	0x1
+	BIPUSH	0x2
+	INVOKEVIRTUAL	xor
+	IRETURN
+
+.end-main
+
+
+.method xor(a, b)
+
+.var
+.end-var
+
+xor:
+	ILOAD	a
+	ILOAD	b	
+	IOR
+	//stack: (a or b)
+
+	ILOAD	a
+	ILOAD	b
+	IAND
+	//stack: (a or b); (a and b)
+
+	INOT
+	//stack: (a or b); NOT (a and b)
+	
+	IAND
+	//stack: (a or b) AND NOT (a and b)
+
+	IRETURN
+
+.end-method
+
