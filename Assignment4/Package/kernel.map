@@ -1,0 +1,645 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD build/animate.o
+LOAD build/block.o
+LOAD build/castle.o
+LOAD build/cloud.o
+LOAD build/collision.o
+LOAD build/draw.o
+LOAD build/element.o
+LOAD build/flag.o
+LOAD build/framebuffer.o
+LOAD build/game.o
+LOAD build/goomba.o
+LOAD build/jtag.o
+LOAD build/lakitu.o
+LOAD build/library.o
+LOAD build/main.o
+LOAD build/map.o
+LOAD build/mario.o
+LOAD build/menu.o
+LOAD build/offset.o
+LOAD build/pause.o
+LOAD build/pipe.o
+LOAD build/plant.o
+LOAD build/screen.o
+LOAD build/snes.o
+LOAD build/spike.o
+LOAD build/text.o
+LOAD build/write.o
+
+.init           0x0000000000008000        0x4
+ *(.init)
+ .init          0x0000000000008000        0x4 build/main.o
+                0x0000000000008000                _start
+
+.data           0x0000000000009080    0x87090
+ *(.data)
+ .data          0x0000000000009080        0x0 build/animate.o
+ .data          0x0000000000009080     0x4000 build/block.o
+                0x0000000000009080                black
+                0x0000000000009880                cloud
+                0x000000000000a080                empty
+                0x000000000000a880                floor
+                0x000000000000b080                mystery
+                0x000000000000b880                solid
+                0x000000000000c080                wood
+                0x000000000000c880                sky
+ .data          0x000000000000d080    0x28800 build/castle.o
+                0x000000000000d080                castle_0_0
+                0x000000000000d880                castle_0_1
+                0x000000000000e080                castle_0_2
+                0x000000000000e880                castle_0_3
+                0x000000000000f080                castle_0_4
+                0x000000000000f880                castle_0_5
+                0x0000000000010080                castle_0_6
+                0x0000000000010880                castle_0_7
+                0x0000000000011080                castle_0_8
+                0x0000000000011880                castle_1_0
+                0x0000000000012080                castle_1_1
+                0x0000000000012880                castle_1_2
+                0x0000000000013080                castle_1_3
+                0x0000000000013880                castle_1_4
+                0x0000000000014080                castle_1_5
+                0x0000000000014880                castle_1_6
+                0x0000000000015080                castle_1_7
+                0x0000000000015880                castle_1_8
+                0x0000000000016080                castle_2_0
+                0x0000000000016880                castle_2_1
+                0x0000000000017080                castle_2_2
+                0x0000000000017880                castle_2_3
+                0x0000000000018080                castle_2_4
+                0x0000000000018880                castle_2_5
+                0x0000000000019080                castle_2_6
+                0x0000000000019880                castle_2_7
+                0x000000000001a080                castle_2_8
+                0x000000000001a880                castle_3_0
+                0x000000000001b080                castle_3_1
+                0x000000000001b880                castle_3_2
+                0x000000000001c080                castle_3_3
+                0x000000000001c880                castle_3_4
+                0x000000000001d080                castle_3_5
+                0x000000000001d880                castle_3_6
+                0x000000000001e080                castle_3_7
+                0x000000000001e880                castle_3_8
+                0x000000000001f080                castle_4_0
+                0x000000000001f880                castle_4_1
+                0x0000000000020080                castle_4_2
+                0x0000000000020880                castle_4_3
+                0x0000000000021080                castle_4_4
+                0x0000000000021880                castle_4_5
+                0x0000000000022080                castle_4_6
+                0x0000000000022880                castle_4_7
+                0x0000000000023080                castle_4_8
+                0x0000000000023880                castle_5_0
+                0x0000000000024080                castle_5_1
+                0x0000000000024880                castle_5_2
+                0x0000000000025080                castle_5_3
+                0x0000000000025880                castle_5_4
+                0x0000000000026080                castle_5_5
+                0x0000000000026880                castle_5_6
+                0x0000000000027080                castle_5_7
+                0x0000000000027880                castle_5_8
+                0x0000000000028080                castle_6_0
+                0x0000000000028880                castle_6_1
+                0x0000000000029080                castle_6_2
+                0x0000000000029880                castle_6_3
+                0x000000000002a080                castle_6_4
+                0x000000000002a880                castle_6_5
+                0x000000000002b080                castle_6_6
+                0x000000000002b880                castle_6_7
+                0x000000000002c080                castle_6_8
+                0x000000000002c880                castle_7_0
+                0x000000000002d080                castle_7_1
+                0x000000000002d880                castle_7_2
+                0x000000000002e080                castle_7_3
+                0x000000000002e880                castle_7_4
+                0x000000000002f080                castle_7_5
+                0x000000000002f880                castle_7_6
+                0x0000000000030080                castle_7_7
+                0x0000000000030880                castle_7_8
+                0x0000000000031080                castle_8_0
+                0x0000000000031880                castle_8_1
+                0x0000000000032080                castle_8_2
+                0x0000000000032880                castle_8_3
+                0x0000000000033080                castle_8_4
+                0x0000000000033880                castle_8_5
+                0x0000000000034080                castle_8_6
+                0x0000000000034880                castle_8_7
+                0x0000000000035080                castle_8_8
+ .data          0x0000000000035880     0x9000 build/cloud.o
+                0x0000000000035880                two_0_0
+                0x0000000000036080                two_0_1
+                0x0000000000036880                two_1_0
+                0x0000000000037080                two_1_1
+                0x0000000000037880                three_0_0
+                0x0000000000038080                three_0_1
+                0x0000000000038880                three_0_2
+                0x0000000000039080                three_1_0
+                0x0000000000039880                three_1_1
+                0x000000000003a080                three_1_2
+                0x000000000003a880                four_0_0
+                0x000000000003b080                four_0_1
+                0x000000000003b880                four_0_2
+                0x000000000003c080                four_0_3
+                0x000000000003c880                four_1_0
+                0x000000000003d080                four_1_1
+                0x000000000003d880                four_1_2
+                0x000000000003e080                four_1_3
+ .data          0x000000000003e880        0x0 build/collision.o
+ .data          0x000000000003e880        0x0 build/draw.o
+ .data          0x000000000003e880     0x2000 build/element.o
+                0x000000000003e880                coin
+                0x000000000003f080                flag
+                0x000000000003f880                mushroom
+                0x0000000000040080                mushroom2
+ .data          0x0000000000040880     0x3000 build/flag.o
+                0x0000000000040880                flag_0_0
+                0x0000000000041080                flag_0_1
+                0x0000000000041880                flag_1_0
+                0x0000000000042080                flag_1_1
+                0x0000000000042880                flag_2_0
+                0x0000000000043080                flag_2_1
+ .data          0x0000000000043880       0x64 build/framebuffer.o
+                0x00000000000438e0                FrameBufferPointer
+ *fill*         0x00000000000438e4        0xc 3f3f3f3f
+ .data          0x00000000000438f0      0x720 build/game.o
+                0x00000000000438f0                stat_coins
+                0x0000000000043900                stat_score
+                0x0000000000043910                stat_lives
+                0x0000000000043920                pause
+                0x0000000000043930                map_range
+                0x0000000000043940                coin_shown
+                0x0000000000043950                coin_coord
+                0x0000000000043960                animate_on
+                0x0000000000043961                lakitu_sprite
+                0x0000000000043970                goomba_sprite
+                0x0000000000043980                spike_show
+                0x0000000000043990                spike_sprite
+                0x00000000000439a0                mario_coord
+                0x00000000000439b0                mario_direct
+                0x00000000000439c0                mario_count
+                0x00000000000439d0                mario_jump_count
+                0x00000000000439e0                mario_sprite
+                0x00000000000439f0                mario_death_jump
+                0x0000000000043a00                collide_data
+                0x0000000000043a10                map_current
+ .data          0x0000000000044010     0x1000 build/goomba.o
+                0x0000000000044010                goomba_walkr
+                0x0000000000044810                goomba_walkl
+ .data          0x0000000000045010        0x0 build/jtag.o
+ .data          0x0000000000045010     0x8000 build/lakitu.o
+                0x0000000000045010                north_0_0
+                0x0000000000045810                north_0_1
+                0x0000000000046010                north_1_0
+                0x0000000000046810                north_1_1
+                0x0000000000047010                east_0_0
+                0x0000000000047810                east_0_1
+                0x0000000000048010                east_1_0
+                0x0000000000048810                east_1_1
+                0x0000000000049010                south_0_0
+                0x0000000000049810                south_0_1
+                0x000000000004a010                south_1_0
+                0x000000000004a810                south_1_1
+                0x000000000004b010                west_0_0
+                0x000000000004b810                west_0_1
+                0x000000000004c010                west_1_0
+                0x000000000004c810                west_1_1
+ .data          0x000000000004d010        0x0 build/library.o
+ .data          0x000000000004d010        0x0 build/main.o
+ .data          0x000000000004d010     0x3000 build/map.o
+                0x000000000004d010                map_menu
+                0x000000000004d610                map1
+                0x000000000004dc10                map2
+                0x000000000004e210                map3
+                0x000000000004e810                map4
+                0x000000000004ee10                map_pause
+                0x000000000004f410                quit
+                0x000000000004fa10                map_end
+ .data          0x0000000000050010     0x6800 build/mario.o
+                0x0000000000050010                mario_standr
+                0x0000000000050810                mario_standl
+                0x0000000000051010                mario_stepr
+                0x0000000000051810                mario_stepl
+                0x0000000000052010                mario_walkr
+                0x0000000000052810                mario_walkl
+                0x0000000000053010                mario_slowr
+                0x0000000000053810                mario_slowl
+                0x0000000000054010                mario_stopl
+                0x0000000000054810                mario_stopr
+                0x0000000000055010                mario_dead
+                0x0000000000055810                mario_jumpr
+                0x0000000000056010                mario_jumpl
+ .data          0x0000000000056810    0x21000 build/menu.o
+                0x0000000000056810                menu_0_0
+                0x0000000000057010                menu_0_1
+                0x0000000000057810                menu_0_2
+                0x0000000000058010                menu_0_3
+                0x0000000000058810                menu_0_4
+                0x0000000000059010                menu_0_5
+                0x0000000000059810                menu_0_6
+                0x000000000005a010                menu_0_7
+                0x000000000005a810                menu_0_8
+                0x000000000005b010                menu_0_9
+                0x000000000005b810                menu_0_10
+                0x000000000005c010                menu_1_0
+                0x000000000005c810                menu_1_1
+                0x000000000005d010                menu_1_2
+                0x000000000005d810                menu_1_3
+                0x000000000005e010                menu_1_4
+                0x000000000005e810                menu_1_5
+                0x000000000005f010                menu_1_6
+                0x000000000005f810                menu_1_7
+                0x0000000000060010                menu_1_8
+                0x0000000000060810                menu_1_9
+                0x0000000000061010                menu_1_10
+                0x0000000000061810                menu_2_0
+                0x0000000000062010                menu_2_1
+                0x0000000000062810                menu_2_2
+                0x0000000000063010                menu_2_3
+                0x0000000000063810                menu_2_4
+                0x0000000000064010                menu_2_5
+                0x0000000000064810                menu_2_6
+                0x0000000000065010                menu_2_7
+                0x0000000000065810                menu_2_8
+                0x0000000000066010                menu_2_9
+                0x0000000000066810                menu_2_10
+                0x0000000000067010                menu_3_0
+                0x0000000000067810                menu_3_1
+                0x0000000000068010                menu_3_2
+                0x0000000000068810                menu_3_3
+                0x0000000000069010                menu_3_4
+                0x0000000000069810                menu_3_5
+                0x000000000006a010                menu_3_6
+                0x000000000006a810                menu_3_7
+                0x000000000006b010                menu_3_8
+                0x000000000006b810                menu_3_9
+                0x000000000006c010                menu_3_10
+                0x000000000006c810                menu_4_0
+                0x000000000006d010                menu_4_1
+                0x000000000006d810                menu_4_2
+                0x000000000006e010                menu_4_3
+                0x000000000006e810                menu_4_4
+                0x000000000006f010                menu_4_5
+                0x000000000006f810                menu_4_6
+                0x0000000000070010                menu_4_7
+                0x0000000000070810                menu_4_8
+                0x0000000000071010                menu_4_9
+                0x0000000000071810                menu_4_10
+                0x0000000000072010                menu_5_0
+                0x0000000000072810                menu_5_1
+                0x0000000000073010                menu_5_2
+                0x0000000000073810                menu_5_3
+                0x0000000000074010                menu_5_4
+                0x0000000000074810                menu_5_5
+                0x0000000000075010                menu_5_6
+                0x0000000000075810                menu_5_7
+                0x0000000000076010                menu_5_8
+                0x0000000000076810                menu_5_9
+                0x0000000000077010                menu_5_10
+ .data          0x0000000000077810        0x0 build/offset.o
+ .data          0x0000000000077810        0x0 build/pause.o
+ .data          0x0000000000077810     0x6000 build/pipe.o
+                0x0000000000077810                pipe_0_0
+                0x0000000000078010                pipe_0_1
+                0x0000000000078810                pipe_0_2
+                0x0000000000079010                pipe_1_0
+                0x0000000000079810                pipe_1_1
+                0x000000000007a010                pipe_1_2
+                0x000000000007a810                pipe_2_0
+                0x000000000007b010                pipe_2_1
+                0x000000000007b810                pipe_2_2
+                0x000000000007c010                pipe_3_0
+                0x000000000007c810                pipe_3_1
+                0x000000000007d010                pipe_3_2
+ .data          0x000000000007d810    0x10000 build/plant.o
+                0x000000000007d810                plant0_0_0
+                0x000000000007e010                plant0_0_1
+                0x000000000007e810                plant0_0_2
+                0x000000000007f010                plant0_0_3
+                0x000000000007f810                plant0_0_4
+                0x0000000000080010                plant0_1_0
+                0x0000000000080810                plant0_1_1
+                0x0000000000081010                plant0_1_2
+                0x0000000000081810                plant0_1_3
+                0x0000000000082010                plant0_1_4
+                0x0000000000082810                plant0_2_0
+                0x0000000000083010                plant0_2_1
+                0x0000000000083810                plant0_2_2
+                0x0000000000084010                plant0_2_3
+                0x0000000000084810                plant0_2_4
+                0x0000000000085010                plant1_0_0
+                0x0000000000085810                plant1_0_1
+                0x0000000000086010                plant1_0_2
+                0x0000000000086810                plant1_0_3
+                0x0000000000087010                plant2_0_0
+                0x0000000000087810                plant2_0_1
+                0x0000000000088010                plant2_0_2
+                0x0000000000088810                plant3_0_0
+                0x0000000000089010                plant3_0_1
+                0x0000000000089810                plant3_0_2
+                0x000000000008a010                plant3_0_3
+                0x000000000008a810                plant3_0_4
+                0x000000000008b010                plant3_1_0
+                0x000000000008b810                plant3_1_1
+                0x000000000008c010                plant3_1_2
+                0x000000000008c810                plant3_1_3
+                0x000000000008d010                plant3_1_4
+ .data          0x000000000008d810        0x0 build/screen.o
+ .data          0x000000000008d810        0x0 build/snes.o
+ .data          0x000000000008d810     0x2000 build/spike.o
+                0x000000000008d810                spike_standr
+                0x000000000008e010                spike_standl
+                0x000000000008e810                spike_walkr
+                0x000000000008f010                spike_walkl
+ .data          0x000000000008f810      0x100 build/text.o
+                0x000000000008f840                text_creator
+                0x000000000008f860                text_start
+                0x000000000008f870                text_quit
+                0x000000000008f880                text_continue
+                0x000000000008f890                text_return
+ .data          0x000000000008f910      0x800 build/write.o
+ *.c.o(*)
+
+.igot.plt       0x0000000000090110        0x0
+ .igot.plt      0x0000000000090110        0x0 build/animate.o
+
+.text           0x0000000000090110     0x37e0
+ *.c.o(.text)
+ *(.text)
+ .text          0x0000000000090110      0x23c build/animate.o
+                0x0000000000090110                animate_coin
+                0x0000000000090164                animate_spike
+ .text          0x000000000009034c        0x0 build/block.o
+ .text          0x000000000009034c        0x0 build/castle.o
+ .text          0x000000000009034c        0x0 build/cloud.o
+ .text          0x000000000009034c      0x478 build/collision.o
+                0x000000000009034c                collision_handler
+                0x0000000000090404                col_animate
+ .text          0x00000000000907c4       0xe8 build/draw.o
+                0x00000000000907c4                draw
+                0x000000000009082c                draw_outline
+ .text          0x00000000000908ac        0x0 build/element.o
+ .text          0x00000000000908ac        0x0 build/flag.o
+ .text          0x00000000000908ac       0x80 build/framebuffer.o
+                0x00000000000908ac                InitFrameBuffer
+ .text          0x000000000009092c      0x4b8 build/game.o
+                0x000000000009092c                game_win_check
+                0x0000000000090c60                game_lose
+                0x0000000000090c7c                game_reset
+ .text          0x0000000000090de4        0x0 build/goomba.o
+ .text          0x0000000000090de4       0x8c build/jtag.o
+                0x0000000000090de4                EnableJTAG
+ .text          0x0000000000090e70        0x0 build/lakitu.o
+ .text          0x0000000000090e70     0x10d8 build/library.o
+                0x0000000000090e70                library
+ .text          0x0000000000091f48       0x5c build/main.o
+                0x0000000000091f58                main_menu_select
+ .text          0x0000000000091fa4        0x0 build/map.o
+ .text          0x0000000000091fa4      0x7a4 build/mario.o
+                0x0000000000091fa4                mario_animate
+                0x0000000000092680                mario_delete
+ .text          0x0000000000092748      0x16c build/menu.o
+                0x0000000000092748                main_menu
+                0x0000000000092770                select_start
+                0x00000000000927dc                select_quit
+                0x0000000000092848                clear_menu
+ .text          0x00000000000928b4       0x1c build/offset.o
+                0x00000000000928b4                offset_block
+                0x00000000000928b4                offset_pixel
+ .text          0x00000000000928d0       0xc4 build/pause.o
+                0x00000000000928d0                pause_menu
+                0x00000000000928e8                select_continue
+                0x0000000000092934                select_menu
+ .text          0x0000000000092994        0x0 build/pipe.o
+ .text          0x0000000000092994        0x0 build/plant.o
+ .text          0x0000000000092994      0x2cc build/screen.o
+                0x0000000000092994                screen_current
+                0x00000000000929b4                screen_replace
+                0x0000000000092a04                screen_clear
+                0x0000000000092a24                screen_scroll
+                0x0000000000092b50                screen_swap
+                0x0000000000092bac                screen_overlay
+ .text          0x0000000000092c60      0x5ac build/snes.o
+                0x0000000000092c60                menu_control
+                0x0000000000092c70                game_control
+                0x0000000000092c80                pause_control
+                0x0000000000092c90                end_control
+                0x0000000000092ebc                Wait
+                0x0000000000093138                InitGPIO
+ .text          0x000000000009320c        0x0 build/spike.o
+ .text          0x000000000009320c      0x534 build/text.o
+                0x000000000009320c                text_menu
+                0x0000000000093278                text_game
+                0x0000000000093424                text_pause
+                0x0000000000093490                text_pause_clear
+                0x00000000000934c0                text_win_menu
+                0x000000000009352c                text_lose_menu
+                0x00000000000935dc                text_loop
+                0x0000000000093620                calculate_offset
+ .text          0x0000000000093740      0x1b0 build/write.o
+                0x0000000000093740                clear_write
+                0x0000000000093778                write
+                0x0000000000093860                small_write
+OUTPUT(build/output.elf elf32-littlearm)
+
+.glue_7         0x00000000000938f0        0x0
+ .glue_7        0x00000000000938f0        0x0 linker stubs
+
+.glue_7t        0x00000000000938f0        0x0
+ .glue_7t       0x00000000000938f0        0x0 linker stubs
+
+.vfp11_veneer   0x00000000000938f0        0x0
+ .vfp11_veneer  0x00000000000938f0        0x0 linker stubs
+
+.v4_bx          0x00000000000938f0        0x0
+ .v4_bx         0x00000000000938f0        0x0 linker stubs
+
+.iplt           0x00000000000938f0        0x0
+ .iplt          0x00000000000938f0        0x0 build/animate.o
+
+.rel.dyn        0x00000000000938f0        0x0
+ .rel.iplt      0x00000000000938f0        0x0 build/animate.o
+
+.bss            0x00000000000938f0        0x0
+ .bss           0x00000000000938f0        0x0 build/animate.o
+ .bss           0x00000000000938f0        0x0 build/block.o
+ .bss           0x00000000000938f0        0x0 build/castle.o
+ .bss           0x00000000000938f0        0x0 build/cloud.o
+ .bss           0x00000000000938f0        0x0 build/collision.o
+ .bss           0x00000000000938f0        0x0 build/draw.o
+ .bss           0x00000000000938f0        0x0 build/element.o
+ .bss           0x00000000000938f0        0x0 build/flag.o
+ .bss           0x00000000000938f0        0x0 build/framebuffer.o
+ .bss           0x00000000000938f0        0x0 build/game.o
+ .bss           0x00000000000938f0        0x0 build/goomba.o
+ .bss           0x00000000000938f0        0x0 build/jtag.o
+ .bss           0x00000000000938f0        0x0 build/lakitu.o
+ .bss           0x00000000000938f0        0x0 build/library.o
+ .bss           0x00000000000938f0        0x0 build/main.o
+ .bss           0x00000000000938f0        0x0 build/map.o
+ .bss           0x00000000000938f0        0x0 build/mario.o
+ .bss           0x00000000000938f0        0x0 build/menu.o
+ .bss           0x00000000000938f0        0x0 build/offset.o
+ .bss           0x00000000000938f0        0x0 build/pause.o
+ .bss           0x00000000000938f0        0x0 build/pipe.o
+ .bss           0x00000000000938f0        0x0 build/plant.o
+ .bss           0x00000000000938f0        0x0 build/screen.o
+ .bss           0x00000000000938f0        0x0 build/snes.o
+ .bss           0x00000000000938f0        0x0 build/spike.o
+ .bss           0x00000000000938f0        0x0 build/text.o
+ .bss           0x00000000000938f0        0x0 build/write.o
+
+.ARM.attributes
+                0x0000000000000000       0x29
+ .ARM.attributes
+                0x0000000000000000       0x29 build/animate.o
+ .ARM.attributes
+                0x0000000000000029       0x29 build/block.o
+ .ARM.attributes
+                0x0000000000000052       0x29 build/castle.o
+ .ARM.attributes
+                0x000000000000007b       0x29 build/cloud.o
+ .ARM.attributes
+                0x00000000000000a4       0x29 build/collision.o
+ .ARM.attributes
+                0x00000000000000cd       0x29 build/draw.o
+ .ARM.attributes
+                0x00000000000000f6       0x29 build/element.o
+ .ARM.attributes
+                0x000000000000011f       0x29 build/flag.o
+ .ARM.attributes
+                0x0000000000000148       0x29 build/framebuffer.o
+ .ARM.attributes
+                0x0000000000000171       0x29 build/game.o
+ .ARM.attributes
+                0x000000000000019a       0x29 build/goomba.o
+ .ARM.attributes
+                0x00000000000001c3       0x29 build/jtag.o
+ .ARM.attributes
+                0x00000000000001ec       0x29 build/lakitu.o
+ .ARM.attributes
+                0x0000000000000215       0x29 build/library.o
+ .ARM.attributes
+                0x000000000000023e       0x29 build/main.o
+ .ARM.attributes
+                0x0000000000000267       0x29 build/map.o
+ .ARM.attributes
+                0x0000000000000290       0x29 build/mario.o
+ .ARM.attributes
+                0x00000000000002b9       0x29 build/menu.o
+ .ARM.attributes
+                0x00000000000002e2       0x29 build/offset.o
+ .ARM.attributes
+                0x000000000000030b       0x29 build/pause.o
+ .ARM.attributes
+                0x0000000000000334       0x29 build/pipe.o
+ .ARM.attributes
+                0x000000000000035d       0x29 build/plant.o
+ .ARM.attributes
+                0x0000000000000386       0x29 build/screen.o
+ .ARM.attributes
+                0x00000000000003af       0x29 build/snes.o
+ .ARM.attributes
+                0x00000000000003d8       0x29 build/spike.o
+ .ARM.attributes
+                0x0000000000000401       0x29 build/text.o
+ .ARM.attributes
+                0x000000000000042a       0x29 build/write.o
+
+.debug_line     0x0000000000000000     0x1295
+ .debug_line    0x0000000000000000       0xd7 build/animate.o
+ .debug_line    0x00000000000000d7      0x171 build/collision.o
+ .debug_line    0x0000000000000248       0x86 build/draw.o
+ .debug_line    0x00000000000002ce       0x67 build/framebuffer.o
+ .debug_line    0x0000000000000335      0x183 build/game.o
+ .debug_line    0x00000000000004b8       0x61 build/jtag.o
+ .debug_line    0x0000000000000519      0x47a build/library.o
+ .debug_line    0x0000000000000993       0x62 build/main.o
+ .debug_line    0x00000000000009f5      0x24a build/mario.o
+ .debug_line    0x0000000000000c3f       0x9a build/menu.o
+ .debug_line    0x0000000000000cd9       0x43 build/offset.o
+ .debug_line    0x0000000000000d1c       0x70 build/pause.o
+ .debug_line    0x0000000000000d8c       0xfc build/screen.o
+ .debug_line    0x0000000000000e88      0x1b7 build/snes.o
+ .debug_line    0x000000000000103f      0x198 build/text.o
+ .debug_line    0x00000000000011d7       0xbe build/write.o
+
+.debug_info     0x0000000000000000      0x7c5
+ .debug_info    0x0000000000000000       0x7e build/animate.o
+ .debug_info    0x000000000000007e       0x80 build/collision.o
+ .debug_info    0x00000000000000fe       0x7b build/draw.o
+ .debug_info    0x0000000000000179       0x82 build/framebuffer.o
+ .debug_info    0x00000000000001fb       0x7b build/game.o
+ .debug_info    0x0000000000000276       0x7b build/jtag.o
+ .debug_info    0x00000000000002f1       0x7e build/library.o
+ .debug_info    0x000000000000036f       0x77 build/main.o
+ .debug_info    0x00000000000003e6       0x7c build/mario.o
+ .debug_info    0x0000000000000462       0x7b build/menu.o
+ .debug_info    0x00000000000004dd       0x7d build/offset.o
+ .debug_info    0x000000000000055a       0x7c build/pause.o
+ .debug_info    0x00000000000005d6       0x7d build/screen.o
+ .debug_info    0x0000000000000653       0x7b build/snes.o
+ .debug_info    0x00000000000006ce       0x7b build/text.o
+ .debug_info    0x0000000000000749       0x7c build/write.o
+
+.debug_abbrev   0x0000000000000000      0x13e
+ .debug_abbrev  0x0000000000000000       0x14 build/animate.o
+ .debug_abbrev  0x0000000000000014       0x14 build/collision.o
+ .debug_abbrev  0x0000000000000028       0x14 build/draw.o
+ .debug_abbrev  0x000000000000003c       0x14 build/framebuffer.o
+ .debug_abbrev  0x0000000000000050       0x14 build/game.o
+ .debug_abbrev  0x0000000000000064       0x14 build/jtag.o
+ .debug_abbrev  0x0000000000000078       0x14 build/library.o
+ .debug_abbrev  0x000000000000008c       0x12 build/main.o
+ .debug_abbrev  0x000000000000009e       0x14 build/mario.o
+ .debug_abbrev  0x00000000000000b2       0x14 build/menu.o
+ .debug_abbrev  0x00000000000000c6       0x14 build/offset.o
+ .debug_abbrev  0x00000000000000da       0x14 build/pause.o
+ .debug_abbrev  0x00000000000000ee       0x14 build/screen.o
+ .debug_abbrev  0x0000000000000102       0x14 build/snes.o
+ .debug_abbrev  0x0000000000000116       0x14 build/text.o
+ .debug_abbrev  0x000000000000012a       0x14 build/write.o
+
+.debug_aranges  0x0000000000000000      0x208
+ .debug_aranges
+                0x0000000000000000       0x20 build/animate.o
+ .debug_aranges
+                0x0000000000000020       0x20 build/collision.o
+ .debug_aranges
+                0x0000000000000040       0x20 build/draw.o
+ .debug_aranges
+                0x0000000000000060       0x20 build/framebuffer.o
+ .debug_aranges
+                0x0000000000000080       0x20 build/game.o
+ .debug_aranges
+                0x00000000000000a0       0x20 build/jtag.o
+ .debug_aranges
+                0x00000000000000c0       0x20 build/library.o
+ .debug_aranges
+                0x00000000000000e0       0x28 build/main.o
+ .debug_aranges
+                0x0000000000000108       0x20 build/mario.o
+ .debug_aranges
+                0x0000000000000128       0x20 build/menu.o
+ .debug_aranges
+                0x0000000000000148       0x20 build/offset.o
+ .debug_aranges
+                0x0000000000000168       0x20 build/pause.o
+ .debug_aranges
+                0x0000000000000188       0x20 build/screen.o
+ .debug_aranges
+                0x00000000000001a8       0x20 build/snes.o
+ .debug_aranges
+                0x00000000000001c8       0x20 build/text.o
+ .debug_aranges
+                0x00000000000001e8       0x20 build/write.o
+
+.debug_ranges   0x0000000000000000       0x20
+ .debug_ranges  0x0000000000000000       0x20 build/main.o
